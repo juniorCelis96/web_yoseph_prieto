@@ -1,0 +1,59 @@
+# Reglas del Proyecto - Next.js
+
+## Convenciones de Código
+
+- **Estilo**: Standard.js (2 espacios, sin punto y coma, comillas simples)
+- **Componentes**: Funcionales con named exports
+- **Preferir**: Server Components sobre Client Components cuando sea posible
+- **Estilos**: Tailwind para utilidades comunes, Stylus modules para estilos complejos específicos del componente
+
+## Estructura de Carpetas
+
+- Componentes en `src/components/`
+- Datos en `src/data/`
+- Utilidades en `src/lib/`
+- Páginas en `src/app/`
+
+## Convenciones de Nombres
+
+- Componentes: PascalCase (ej: `Navbar.tsx`)
+- Archivos de datos: camelCase (ej: `artistData.ts`)
+- Utilidades: camelCase (ej: `utils.ts`)
+- CSS Modules: `ComponentName.module.styl`
+
+## TypeScript
+
+- Usar TypeScript para todos los archivos nuevos
+- Definir tipos e interfaces cuando sea necesario
+- Evitar `any` cuando sea posible
+
+## React
+
+- Usar hooks de React cuando sea necesario
+- Preferir Server Components por defecto
+- Marcar Client Components con `'use client'` al inicio del archivo
+- Usar named exports para componentes
+
+## Estilos
+
+- Tailwind CSS para la mayoría de los estilos
+- Stylus modules solo para estilos complejos específicos del componente
+- Usar variables CSS cuando sea apropiado
+- Mantener consistencia en el diseño
+
+## Formularios
+
+- Usar React Hook Form + Zod para validación
+- Validar tanto en cliente como en servidor cuando sea posible
+
+## Performance
+
+- Usar Next.js Image para todas las imágenes
+- Implementar lazy loading cuando sea apropiado
+- Optimizar imágenes antes de subirlas
+
+## SEO
+
+- Incluir meta tags apropiados
+- Usar títulos y descripciones descriptivos
+- Implementar Open Graph y Twitter Cards
