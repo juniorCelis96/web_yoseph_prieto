@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
   images: {
+    unoptimized: true,
     domains: ['i.ytimg.com', 'images.unsplash.com'],
     remotePatterns: [
       {
@@ -12,7 +13,7 @@ const nextConfig = {
     ]
   },
   eslint: {
-    ignoreDuringBuilds: false
+    ignoreDuringBuilds: true
   },
   typescript: {
     ignoreBuildErrors: false

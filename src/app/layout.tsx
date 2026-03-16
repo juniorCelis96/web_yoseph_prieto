@@ -1,31 +1,34 @@
 import type { Metadata } from 'next'
-import { Inter, Poppins } from 'next/font/google'
+import { Cormorant_Garamond, Lora } from 'next/font/google'
 import './globals.css'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import { WhatsAppButton } from '@/components/WhatsAppButton'
+import { CustomCursor } from '@/components/CustomCursor'
+import { Providers } from '@/components/Providers'
 
-const inter = Inter({
+const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  variable: '--font-inter',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-cormorant',
   display: 'swap'
 })
 
-const poppins = Poppins({
+const lora = Lora({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-poppins',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-lora',
   display: 'swap'
 })
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://yosephprieto.com'),
   title: {
-    default: 'Yoseph Prieto Oficial | Artista Musical',
-    template: '%s | Yoseph Prieto Oficial'
+    default: 'YOSEPH PRIETO | Voz del Occidente de Boyacá',
+    template: '%s | YOSEPH PRIETO'
   },
-  description: 'Página oficial del artista musical Yoseph Prieto. Escucha su música, conoce su trayectoria y contáctalo para eventos y presentaciones.',
-  keywords: ['Yoseph Prieto', 'música', 'artista', 'eventos', 'contrataciones', 'conciertos', 'música en vivo'],
+  description: 'Yoseph Prieto, cantante colombiano de música ranchera, popular y carranga, oriundo de Otanche, Boyacá. Escucha su música auténtica del occidente boyacense.',
+  keywords: ['Yoseph Prieto', 'música ranchera', 'carranga', 'música popular colombiana', 'Otanche Boyacá', 'música tradicional', 'occidente de Boyacá'],
   authors: [{ name: 'Yoseph Prieto' }],
   creator: 'Yoseph Prieto',
   publisher: 'Yoseph Prieto Oficial',
@@ -79,14 +82,17 @@ export default function RootLayout ({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" className={`${inter.variable} ${poppins.variable}`}>
-      <body className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white antialiased">
-        <Navbar />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer />
-        <WhatsAppButton />
+    <html lang="es" className={`${cormorant.variable} ${lora.variable}`}>
+      <body className="min-h-screen bg-navy text-white antialiased relative">
+        <Providers>
+          <CustomCursor />
+          <Navbar />
+          <main className="flex-1 relative z-10">
+            {children}
+          </main>
+          <Footer />
+          <WhatsAppButton />
+        </Providers>
       </body>
     </html>
   )

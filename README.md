@@ -1,13 +1,13 @@
 # Web Yoseph Prieto Oficial
 
-Página web profesional y estática para el artista musical "Yoseph Prieto Oficial", diseñada para fortalecer su marca artística en el entorno digital.
+Pï¿½gina web profesional y estï¿½tica para el artista musical "Yoseph Prieto Oficial", diseï¿½ada para fortalecer su marca artï¿½stica en el entorno digital.
 
-## ?? Tecnologías
+## ?? Tecnologï¿½as
 
 - **Next.js 15** (App Router) con React 19
 - **Tailwind CSS** para estilos utilitarios
 - **Stylus** para CSS Modules (archivos .module.styl)
-- **React Hook Form + Zod** para formularios y validación
+- **React Hook Form + Zod** para formularios y validaciï¿½n
 - **Zustand** para estado global (si es necesario)
 - **Radix UI** y **Shadcn UI** para componentes base
 - **Lucide React** para iconos
@@ -16,27 +16,27 @@ Página web profesional y estática para el artista musical "Yoseph Prieto Oficial
 
 ```
 src/
-??? app/              # Páginas y layouts de Next.js
+??? app/              # Pï¿½ginas y layouts de Next.js
 ??? components/       # Componentes React reutilizables
-??? data/            # Archivos de datos estáticos
+??? data/            # Archivos de datos estï¿½ticos
 ??? lib/             # Utilidades y helpers
 ```
 
-## ?? Características
+## ?? Caracterï¿½sticas
 
-- ? Diseño responsive mobile-first
-- ? Página de inicio con Hero impactante
-- ? Sección de biografía y trayectoria
-- ? Galería de música con reproductores integrados
-- ? Galería de imágenes y videos
-- ? Sección de eventos próximos y pasados
-- ? Formulario de contacto con validación
-- ? Integración con WhatsApp Business
+- ? Diseï¿½o responsive mobile-first
+- ? Pï¿½gina de inicio con Hero impactante
+- ? Secciï¿½n de biografï¿½a y trayectoria
+- ? Galerï¿½a de mï¿½sica con reproductores integrados
+- ? Galerï¿½a de imï¿½genes y videos
+- ? Secciï¿½n de eventos prï¿½ximos y pasados
+- ? Formulario de contacto con validaciï¿½n
+- ? Integraciï¿½n con WhatsApp Business
 - ? Enlaces a redes sociales
 - ? SEO optimizado
 - ? Meta tags para compartir en redes sociales
 
-## ??? Instalación
+## ??? Instalaciï¿½n
 
 ```bash
 # Instalar dependencias
@@ -45,35 +45,35 @@ npm install
 # Ejecutar en desarrollo
 npm run dev
 
-# Construir para producción
+# Construir para producciï¿½n
 npm run build
 
-# Iniciar servidor de producción
+# Iniciar servidor de producciï¿½n
 npm start
 ```
 
-## ?? Configuración
+## ?? Configuraciï¿½n
 
 ### Datos del Artista
 
 Edita los archivos en `src/data/` para personalizar:
-- `artistData.ts` - Información del artista, contacto, biografía
+- `artistData.ts` - Informaciï¿½n del artista, contacto, biografï¿½a
 - `musicData.ts` - Lanzamientos musicales
 - `eventsData.ts` - Eventos y presentaciones
-- `galleryData.ts` - Imágenes y videos
+- `galleryData.ts` - Imï¿½genes y videos
 - `socialMediaData.ts` - Enlaces a redes sociales
 
 ### WhatsApp
 
-Actualiza el número de WhatsApp en `src/data/artistData.ts`:
+Actualiza el nï¿½mero de WhatsApp en `src/data/artistData.ts`:
 ```typescript
 contact: {
-  whatsapp: '+1234567890', // Tu número aquí
+  whatsapp: '+1234567890', // Tu nï¿½mero aquï¿½
   // ...
 }
 ```
 
-## ?? Personalización
+## ?? Personalizaciï¿½n
 
 ### Colores
 
@@ -87,21 +87,21 @@ Las fuentes se configuran en `src/app/layout.tsx`:
 - Inter - Fuente principal
 - Poppins - Fuente de display
 
-## ?? Páginas
+## ?? Pï¿½ginas
 
-- `/` - Página de inicio con todas las secciones
-- `/#biografia` - Sección de biografía
-- `/#musica` - Sección de música
-- `/#galeria` - Galería de imágenes
+- `/` - Pï¿½gina de inicio con todas las secciones
+- `/#biografia` - Secciï¿½n de biografï¿½a
+- `/#musica` - Secciï¿½n de mï¿½sica
+- `/#galeria` - Galerï¿½a de imï¿½genes
 - `/#eventos` - Eventos
 - `/#contacto` - Formulario de contacto
 
 ## ?? Convenciones
 
-- Standard.js para estilo de código (2 espacios, sin punto y coma, comillas simples)
+- Standard.js para estilo de cï¿½digo (2 espacios, sin punto y coma, comillas simples)
 - Componentes funcionales con named exports
 - Preferir Server Components sobre Client Components
-- Tailwind para utilidades comunes y Stylus modules para estilos complejos específicos
+- Tailwind para utilidades comunes y Stylus modules para estilos complejos especï¿½ficos
 
 ## ?? Licencia
 

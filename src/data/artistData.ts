@@ -1,27 +1,27 @@
 export const artistData = {
-  name: 'Yoseph Prieto',
-  fullName: 'Yoseph Prieto Oficial',
-  tagline: 'Música que conecta emociones',
-  bio: `Yoseph Prieto es un artista musical apasionado que ha dedicado su vida a crear música que conecta con las emociones más profundas de su audiencia. Con años de experiencia en el escenario y un estilo único que combina diferentes géneros musicales, Yoseph ha logrado construir una carrera sólida en la industria musical.
+  name: 'YOSEPH PRIETO',
+  fullName: 'Yoseph Prieto',
+  tagline: "Vamos pa' lante",
+  bio: `Yoseph Prieto es un cantante colombiano de música ranchera, popular y carranga, oriundo de Otanche, Boyacá. Su voz auténtica y su pasión por la música tradicional colombiana lo han convertido en uno de los exponentes más destacados del género en el occidente boyacense.`,
 
-Su música refleja su personalidad auténtica y su compromiso con la excelencia artística. Cada presentación es una experiencia única que deja una huella imborrable en el público.`,
+  longBio: `Yoseph Prieto nació y creció en Otanche, Boyacá, tierra de tradiciones y música auténtica. Desde muy joven, su voz resonó en las veredas y plazas del occidente boyacense, interpretando las canciones que han marcado generaciones de colombianos.
 
-  longBio: `Yoseph Prieto es un artista musical con una trayectoria destacada en la escena musical. Su pasión por la música comenzó desde muy joven, y a lo largo de los años ha desarrollado un estilo único que combina elementos de diferentes géneros para crear un sonido distintivo y memorable.
+Su repertorio abarca la música ranchera mexicana adaptada al sentir colombiano, la música popular y especialmente la carranga, género que lleva en el alma. Con su estilo único y su capacidad para conectar con el público, Yoseph ha llevado su música a festivales, ferias y eventos en toda la región.
 
-Con una presencia escénica carismática y una voz poderosa, Yoseph ha cautivado a audiencias en numerosos eventos, festivales y presentaciones en vivo. Su compromiso con la excelencia artística y su capacidad para conectar emocionalmente con el público lo han convertido en un artista reconocido y solicitado.
+Canciones como "El Esmeraldero", "Lamento del Guaquero" y "Llegó el Cantante" han resonado en los corazones de quienes buscan música auténtica, que hable de la tierra, del trabajo, del amor y de la vida campesina.
 
-Más allá de sus habilidades como intérprete, Yoseph también se destaca por su profesionalismo y dedicación. Cada proyecto es abordado con pasión y atención al detalle, asegurando que cada presentación sea una experiencia única e inolvidable para su audiencia.
-
-Su música trasciende barreras y conecta con personas de todas las edades y procedencias, creando momentos mágicos que perduran en la memoria de quienes tienen la oportunidad de experimentarlos.`,
+Yoseph Prieto no solo canta, sino que cuenta historias. Cada presentación es un viaje a través de las tradiciones musicales colombianas, un homenaje a los compositores que han marcado el género y una celebración de la identidad cultural del occidente de Boyacá.`,
 
   contact: {
-    whatsapp: '+1234567890',
-    email: 'contacto@yosephprieto.com',
-    phone: '+1234567890'
+    whatsapp: '+573204852662',
+    email: 'oficialyoseph.prieto@gmail.com',
+    phone: '+573204852662'
   },
 
   location: {
-    city: 'Ciudad',
-    country: 'País'
+    city: 'Otanche',
+    department: 'Boyacá',
+    country: 'Colombia',
+    region: 'Occidente de Boyacá'
   }
 }

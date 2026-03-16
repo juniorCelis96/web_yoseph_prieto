@@ -1,47 +1,58 @@
 'use client'
 
+import { useEffect, useRef, memo } from 'react'
 import Image from 'next/image'
-import { Play, ExternalLink, Music } from 'lucide-react'
+import { Play } from 'lucide-react'
 import { musicData, type MusicRelease } from '@/data/musicData'
 
 export function MusicSection () {
-  const featuredReleases = musicData.filter(m => m.featured)
-  const allReleases = musicData
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed')
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: '50px' }
+    )
+
+    if (sectionRef.current) {
+      const elements = sectionRef.current.querySelectorAll('.reveal')
+      elements.forEach((el) => observer.observe(el))
+    }
+
+    return () => observer.disconnect()
+  }, [])
 
   return (
-    <section id="musica" className="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
+    <section
+      id="musica"
+      ref={sectionRef}
+      className="py-12 sm:py-16 md:py-20 bg-navy relative"
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
+          {/* Título */}
+          <div className="text-center mb-10 sm:mb-12 md:mb-16 reveal">
+            <h2 className="font-display text-gold text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
               Música
             </h2>
-            <div className="w-24 h-1 bg-primary-500 mx-auto mb-4" />
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              Descubre los últimos lanzamientos y éxitos de Yoseph Prieto
-            </p>
+            <div className="separator-diagonal mx-auto w-32 sm:w-48" />
           </div>
 
-          {/* Featured Releases */}
-          {featuredReleases.length > 0 && (
-            <div className="mb-16">
-              <h3 className="text-2xl font-semibold text-white mb-8">Destacados</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {featuredReleases.map((release) => (
-                  <MusicCard key={release.id} release={release} featured />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* All Releases */}
-          <div>
-            <h3 className="text-2xl font-semibold text-white mb-8">Todos los Lanzamientos</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {allReleases.map((release) => (
-                <MusicCard key={release.id} release={release} />
-              ))}
-            </div>
+          {/* Cards horizontales */}
+          <div className="space-y-4 sm:space-y-6">
+            {musicData.map((release, index) => (
+              <MusicCard
+                key={release.id}
+                release={release}
+                index={index}
+              />
+            ))}
           </div>
         </div>
       </div>
@@ -49,61 +60,47 @@ export function MusicSection () {
   )
 }
 
-function MusicCard ({ release, featured = false }: { release: MusicRelease, featured?: boolean }) {
+const MusicCard = memo(function MusicCard ({ release, index }: { release: MusicRelease, index: number }) {
   return (
-    <div className="group relative bg-gray-800/50 backdrop-blur-sm rounded-lg overflow-hidden hover:bg-gray-800 transition-all duration-300 hover:scale-105 shadow-lg">
-      <div className="relative aspect-square">
-        <Image
-          src={release.coverImage}
-          alt={release.title}
-          fill
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-          <div className="flex gap-4">
+    <div className="reveal bg-navy border-2 border-gold p-4 sm:p-6 md:p-8 hover:bg-navy/80 transition-all duration-300 glow-gold group rounded-lg">
+      <div className="flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 items-center">
+        {/* Imagen carátula */}
+        <div className="flex-shrink-0">
+          <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 border-2 border-gold rounded-lg overflow-hidden bg-navy group-hover:bg-gold/10 transition-colors">
+            <Image
+              src={release.coverImage}
+              alt={release.title}
+              fill
+              className="object-cover rounded-md"
+              unoptimized
+              loading={index < 2 ? 'eager' : 'lazy'}
+            />
+          </div>
+        </div>
+
+        {/* Contenido */}
+        <div className="flex-1 text-center md:text-left">
+          <h3 className="font-display text-gold text-xl sm:text-2xl md:text-3xl font-bold mb-2">
+            {release.title}
+          </h3>
+          <p className="text-sand font-body text-sm sm:text-base md:text-lg mb-3 sm:mb-4">
+            {release.description}
+          </p>
+          <div className="flex flex-wrap gap-3 sm:gap-4 justify-center md:justify-start">
             {release.spotifyUrl && (
               <a
                 href={release.spotifyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-primary-600 hover:bg-primary-700 text-white p-3 rounded-full transition-all hover:scale-110"
-                aria-label={`Escuchar ${release.title} en Spotify`}
+                className="inline-flex items-center gap-2 bg-gold hover:bg-forest text-navy hover:text-gold px-4 sm:px-6 py-2 font-display font-semibold transition-all duration-300 border-2 border-gold rounded-md text-sm sm:text-base"
               >
-                <Music className="w-5 h-5" />
-              </a>
-            )}
-            {release.youtubeUrl && (
-              <a
-                href={release.youtubeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-red-600 hover:bg-red-700 text-white p-3 rounded-full transition-all hover:scale-110"
-                aria-label={`Ver ${release.title} en YouTube`}
-              >
-                <Play className="w-5 h-5" />
+                <Play className="w-4 h-4" />
+                <span>Escuchar en Spotify</span>
               </a>
             )}
           </div>
         </div>
-        {featured && (
-          <div className="absolute top-4 right-4 bg-primary-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-            Destacado
-          </div>
-        )}
-      </div>
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-xs text-gray-400 uppercase tracking-wider">
-            {release.type === 'single' ? 'Single' : release.type === 'album' ? 'Álbum' : 'EP'}
-          </span>
-          <span className="text-xs text-gray-400">
-            {new Date(release.releaseDate).toLocaleDateString('es-ES', { year: 'numeric', month: 'long' })}
-          </span>
-        </div>
-        <h3 className="text-xl font-semibold text-white mb-2">{release.title}</h3>
-        <p className="text-gray-400 text-sm line-clamp-2">{release.description}</p>
       </div>
     </div>
   )
-}
+})

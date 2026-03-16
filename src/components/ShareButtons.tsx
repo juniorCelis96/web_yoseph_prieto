@@ -47,13 +47,12 @@ export function ShareButtons ({ url, title = 'Yoseph Prieto Oficial', descriptio
 
   return (
     <div className="flex items-center space-x-4">
-      <span className="text-gray-400 text-sm">Compartir:</span>
       <div className="flex items-center space-x-2">
         <a
           href={shareLinks.facebook}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-gray-400 hover:text-blue-500 transition-colors"
+          className="text-sand hover:text-gold transition-colors"
           aria-label="Compartir en Facebook"
         >
           <Facebook className="w-5 h-5" />
@@ -62,7 +61,7 @@ export function ShareButtons ({ url, title = 'Yoseph Prieto Oficial', descriptio
           href={shareLinks.twitter}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-gray-400 hover:text-blue-400 transition-colors"
+          className="text-sand hover:text-gold transition-colors"
           aria-label="Compartir en Twitter"
         >
           <Twitter className="w-5 h-5" />
@@ -71,21 +70,21 @@ export function ShareButtons ({ url, title = 'Yoseph Prieto Oficial', descriptio
           href={shareLinks.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-gray-400 hover:text-blue-600 transition-colors"
+          className="text-sand hover:text-gold transition-colors"
           aria-label="Compartir en LinkedIn"
         >
           <Linkedin className="w-5 h-5" />
         </a>
         <button
           onClick={copyToClipboard}
-          className="text-gray-400 hover:text-white transition-colors"
+          className="text-sand hover:text-gold transition-colors"
           aria-label="Copiar enlace"
         >
           <LinkIcon className="w-5 h-5" />
         </button>
       </div>
       {copied && (
-        <span className="text-sm text-green-400">¡Enlace copiado!</span>
+        <span className="text-sm text-gold font-body">¡Enlace copiado!</span>
       )}
     </div>
   )

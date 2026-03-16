@@ -15,35 +15,32 @@ export interface MusicRelease {
 export const musicData: MusicRelease[] = [
   {
     id: '1',
-    title: 'Canción Destacada',
+    title: 'Llegó el Cantante',
     type: 'single',
-    releaseDate: '2024-01-15',
-    coverImage: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800',
-    description: 'Una canción que captura la esencia del estilo musical de Yoseph Prieto.',
-    spotifyUrl: 'https://open.spotify.com/track/example',
-    youtubeUrl: 'https://www.youtube.com/watch?v=example',
+    releaseDate: '2024-01-01',
+    coverImage: '/yp_img_caratula_1_album.png',
+    description: 'Canción festiva que celebra la llegada del artista, con ritmos alegres de música ranchera y carranga.',
+    spotifyUrl: 'https://open.spotify.com/intl-es/track/2WbttTIdUGRwdwJBesgFpZ?si=6646776e4b0f4215',
     featured: true
   },
   {
     id: '2',
-    title: 'Álbum Principal',
-    type: 'album',
-    releaseDate: '2023-06-20',
-    coverImage: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800',
-    description: 'Una colección de canciones que representan el mejor trabajo del artista.',
-    spotifyUrl: 'https://open.spotify.com/album/example',
-    youtubeUrl: 'https://www.youtube.com/playlist?list=example',
+    title: 'El Esmeraldero',
+    type: 'single',
+    releaseDate: '2024-01-01',
+    coverImage: '/yp_img_caratula_1_album.png',
+    description: 'Una canción que narra la vida y el trabajo de los esmeralderos del occidente de Boyacá, con ritmos auténticos de carranga.',
+    spotifyUrl: 'https://open.spotify.com/intl-es/track/2HrsLURZb9thFUDA7UIfTD?si=71ed86e1c24348e9',
     featured: true
   },
   {
     id: '3',
-    title: 'Nuevo Single',
+    title: 'Lamento del Guaquero',
     type: 'single',
-    releaseDate: '2024-03-10',
-    coverImage: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800',
-    description: 'El último lanzamiento del artista, disponible en todas las plataformas.',
-    spotifyUrl: 'https://open.spotify.com/track/example2',
-    youtubeUrl: 'https://www.youtube.com/watch?v=example2',
-    featured: false
+    releaseDate: '2024-01-01',
+    coverImage: '/yp_img_caratula_1_album.png',
+    description: 'Melodía profunda que expresa el sentir del guaquero, con arreglos tradicionales que honran la música popular colombiana.',
+    spotifyUrl: 'https://open.spotify.com/intl-es/track/20gH3DvkTCNsTWZleD52yw?si=f7069f03a2d84a83',
+    featured: true
   }
 ]

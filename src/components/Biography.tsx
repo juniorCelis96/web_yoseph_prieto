@@ -1,47 +1,89 @@
+'use client'
+
+import { useEffect, useRef, useMemo } from 'react'
 import Image from 'next/image'
 import { artistData } from '@/data/artistData'
 
 export function Biography () {
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed')
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: '50px' }
+    )
+
+    if (sectionRef.current) {
+      const elements = sectionRef.current.querySelectorAll('.reveal')
+      elements.forEach((el) => observer.observe(el))
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  // Memoizar el split de la biografía para evitar recalcular
+  const bioParagraphs = useMemo(() => artistData.longBio.split('\n\n'), [])
+
   return (
-    <section id="biografia" className="py-20 bg-gray-900">
+    <section
+      id="biografia"
+      ref={sectionRef}
+      className="py-12 sm:py-16 md:py-20 bg-forest relative"
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
+          {/* Título */}
+          <div className="text-center mb-8 sm:mb-10 md:mb-12 reveal">
+            <h2 className="font-display text-gold text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
               Biografía
             </h2>
-            <div className="w-24 h-1 bg-primary-500 mx-auto" />
+            <div className="separator-diagonal mx-auto w-32 sm:w-48" />
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Image */}
-            <div className="relative aspect-square rounded-lg overflow-hidden shadow-2xl">
-              <Image
-                src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800"
-                alt={artistData.name}
-                fill
-                className="object-cover"
-              />
+          {/* Layout dos columnas */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center">
+            {/* Foto izquierda */}
+            <div className="reveal relative aspect-[4/5] order-2 lg:order-1">
+              <div className="relative w-full h-full border-2 border-gold p-2 rounded-lg">
+                <Image
+                  src="/yp_img_biografia.jpeg"
+                  alt={artistData.name}
+                  fill
+                  className="object-cover object-[center_30%] rounded-md"
+                  unoptimized
+                  loading="lazy"
+                />
+              </div>
             </div>
 
-            {/* Content */}
-            <div className="space-y-6">
+            {/* Texto derecha */}
+            <div className="reveal order-1 lg:order-2 space-y-4 sm:space-y-6">
               <div className="prose prose-invert max-w-none">
-                <p className="text-lg text-gray-300 leading-relaxed">
-                  {artistData.longBio}
+                <p className="text-white text-base sm:text-lg md:text-xl font-body leading-relaxed mb-3 sm:mb-4">
+                  {bioParagraphs[0]}
+                </p>
+                <p className="text-sand text-sm sm:text-base md:text-lg font-body leading-relaxed mb-3 sm:mb-4">
+                  {bioParagraphs[1]}
+                </p>
+                <p className="text-white text-base sm:text-lg md:text-xl font-body leading-relaxed">
+                  {bioParagraphs[2]}
                 </p>
               </div>
 
-              {/* Highlights */}
-              <div className="grid grid-cols-2 gap-6 pt-6">
-                <div className="text-center p-6 bg-gray-800/50 rounded-lg backdrop-blur-sm">
-                  <div className="text-3xl font-bold text-primary-400 mb-2">10+</div>
-                  <div className="text-gray-400 text-sm">Años de Experiencia</div>
-                </div>
-                <div className="text-center p-6 bg-gray-800/50 rounded-lg backdrop-blur-sm">
-                  <div className="text-3xl font-bold text-primary-400 mb-2">100+</div>
-                  <div className="text-gray-400 text-sm">Presentaciones</div>
-                </div>
+              {/* Información adicional */}
+              <div className="pt-4 sm:pt-6 border-t border-gold/30">
+                <p className="text-sand font-body text-xs sm:text-sm md:text-base">
+                  <span className="text-gold font-semibold">Origen:</span> {artistData.location.city}, {artistData.location.department}
+                </p>
+                <p className="text-sand font-body text-xs sm:text-sm md:text-base mt-2">
+                  <span className="text-gold font-semibold">Género:</span> Música Ranchera, Popular, Carranga
+                </p>
               </div>
             </div>
           </div>

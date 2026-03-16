@@ -10,30 +10,30 @@ export const socialMediaData: SocialMedia[] = [
   {
     id: 'instagram',
     name: 'Instagram',
-    url: 'https://instagram.com/yosephprieto',
+    url: 'https://www.instagram.com/yosephprietooficial/',
     icon: 'instagram',
-    username: '@yosephprieto'
+    username: '@yosephprietooficial'
   },
   {
     id: 'facebook',
-    name: 'Facebook',
-    url: 'https://facebook.com/yosephprieto',
+    name: 'Proyecto Yoseph Prieto',
+    url: 'https://www.facebook.com/artistayosephprieto?locale=es_LA',
     icon: 'facebook',
     username: 'Yoseph Prieto Oficial'
   },
   {
     id: 'youtube',
     name: 'YouTube',
-    url: 'https://youtube.com/@yosephprieto',
+    url: 'https://www.youtube.com/@yosephprietooficial/videos',
     icon: 'youtube',
-    username: 'Yoseph Prieto'
+    username: 'Yoseph Prieto Oficial'
   },
   {
     id: 'tiktok',
     name: 'TikTok',
-    url: 'https://tiktok.com/@yosephprieto',
+    url: 'https://www.tiktok.com/@yosephprieto1',
     icon: 'music',
-    username: '@yosephprieto'
+    username: '@yosephprieto1'
   },
   {
     id: 'spotify',
