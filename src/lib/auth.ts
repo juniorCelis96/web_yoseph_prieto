@@ -25,47 +25,64 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         const adminUuid = process.env.ADMIN_UUID
         const adminEmail = process.env.ADMIN_EMAIL
-        
-        // Validar que el UUID en la URL sea correcto
-        if (!adminUuid || credentials?.uuid !== adminUuid) {
+
+        // Logs solo con códigos (sin credenciales) para depurar en producción (Vercel → Logs)
+        const log = (code: string) => {
+          if (process.env.NODE_ENV === 'production') {
+            console.error('[next-auth] authorize:', code)
+          }
+        }
+
+        if (!adminUuid) {
+          log('MISSING_ADMIN_UUID')
           return null
         }
-        
-        // Validar que el email coincida con el admin email configurado
-        if (!adminEmail || credentials?.email !== adminEmail) {
+        if (!credentials?.uuid || credentials.uuid !== adminUuid) {
+          log('INVALID_OR_MISSING_UUID')
           return null
         }
-        
-        // Validar que tengamos las credenciales necesarias
-        if (!credentials?.email || !credentials?.password) {
+
+        if (!adminEmail) {
+          log('MISSING_ADMIN_EMAIL')
           return null
         }
-        
-        // Crear cliente de Supabase para autenticación
+        if (!credentials?.email || credentials.email !== adminEmail) {
+          log('EMAIL_MISMATCH')
+          return null
+        }
+
+        if (!credentials?.password) {
+          log('MISSING_PASSWORD')
+          return null
+        }
+
         const supabase = createServerClient()
-        
         if (!supabase) {
+          log('SUPABASE_NOT_CONFIGURED')
           throw new Error('Supabase no está configurado correctamente')
         }
-        
-        // Autenticar con Supabase Auth
+
         const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
           email: credentials.email,
           password: credentials.password
         })
-        
-        if (authError || !authData.user) {
+
+        if (authError) {
+          log('SUPABASE_AUTH_ERROR:' + authError.message)
           return null
         }
-        
-        // Verificar que el usuario tenga el rol de admin en metadata
+        if (!authData.user) {
+          log('SUPABASE_NO_USER')
+          return null
+        }
+
         const userMetadata = authData.user.user_metadata
         const isAdmin = userMetadata?.role === 'admin' || credentials.email === adminEmail
-        
         if (!isAdmin) {
+          log('NOT_ADMIN_ROLE')
           return null
         }
-        
+
         return {
           id: authData.user.id,
           name: authData.user.user_metadata?.name || 'Admin',
