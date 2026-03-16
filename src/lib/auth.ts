@@ -2,7 +2,18 @@ import { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { createServerClient } from './supabase'
 
+// En producción NextAuth exige un secret para firmar cookies/JWT
+const secret = process.env.NEXTAUTH_SECRET
+if (process.env.NODE_ENV === 'production' && !secret) {
+  console.error(
+    '[next-auth] NEXTAUTH_SECRET no está definido en producción. ' +
+    'Añade la variable NEXTAUTH_SECRET en tu plataforma (ej. Vercel → Settings → Environment Variables). ' +
+    'Genera uno con: openssl rand -base64 32'
+  )
+}
+
 export const authOptions: NextAuthOptions = {
+  secret: secret || undefined,
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -69,7 +80,6 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt'
   },
-  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
