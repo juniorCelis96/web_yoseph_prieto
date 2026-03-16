@@ -14,7 +14,6 @@ if (process.env.NODE_ENV === 'production' && !secret) {
 
 export const authOptions: NextAuthOptions = {
   secret: secret || undefined,
-  trustHost: true, // Necesario en producción (Vercel, etc.) para que las cookies y callbacks usen la URL correcta
   providers: [
     CredentialsProvider({
       name: 'Credentials',
