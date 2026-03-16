@@ -7,14 +7,15 @@ import { mockDb } from '@/lib/mockDb'
 // GET - Fetch single event
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const supabase = createServerClient()
     
     // Si Supabase no está configurado, usar mock database
     if (!supabase) {
-      const event = await mockDb.getEventById(params.id)
+      const event = await mockDb.getEventById(id)
       if (!event) {
         return NextResponse.json(
           { error: 'Event not found' },
@@ -27,7 +28,7 @@ export async function GET(
     const { data, error } = await supabase
       .from('events')
       .select('*')
-      .eq('id', params.id)
+      .eq('id', id)
       .single()
     
     if (error || !data) {
@@ -50,9 +51,10 @@ export async function GET(
 // PUT - Update event
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const session = await getServerSession(authOptions)
     
     if (!session) {
@@ -79,7 +81,7 @@ export async function PUT(
       if (status !== undefined) updateData.status = status
       if (active !== undefined) updateData.active = active
       
-      const updatedEvent = await mockDb.updateEvent(params.id, updateData)
+      const updatedEvent = await mockDb.updateEvent(id, updateData)
       if (!updatedEvent) {
         return NextResponse.json(
           { error: 'Event not found' },
@@ -102,7 +104,7 @@ export async function PUT(
     const { data, error } = await supabase
       .from('events')
       .update(updateData)
-      .eq('id', params.id)
+      .eq('id', id)
       .select()
       .single()
     
@@ -127,9 +129,10 @@ export async function PUT(
 // DELETE - Delete event
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const session = await getServerSession(authOptions)
     
     if (!session) {
@@ -143,7 +146,7 @@ export async function DELETE(
     
     // Si Supabase no está configurado, usar mock database
     if (!supabase) {
-      const deleted = await mockDb.deleteEvent(params.id)
+      const deleted = await mockDb.deleteEvent(id)
       if (!deleted) {
         return NextResponse.json(
           { error: 'Event not found' },
@@ -156,7 +159,7 @@ export async function DELETE(
     const { error } = await supabase
       .from('events')
       .delete()
-      .eq('id', params.id)
+      .eq('id', id)
     
     if (error) {
       console.error('Supabase error:', error)

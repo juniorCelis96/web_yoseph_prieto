@@ -25,7 +25,7 @@ const eventSchema = z.object({
   }).default(true)
 })
 
-type EventFormData = z.infer<typeof eventSchema>
+type EventFormData = z.input<typeof eventSchema>
 
 export default function EditEventPage() {
   const { data: session, status } = useSession()
