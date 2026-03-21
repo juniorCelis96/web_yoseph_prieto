@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { Menu, X, Instagram, Facebook, Youtube, Music2, MessageCircle } from 'lucide-react'
+import { Menu, X, Instagram, Facebook, Youtube, MessageCircle } from 'lucide-react'
 import { smoothScrollToElement } from '@/lib/smoothScroll'
 
 export function Navbar() {
@@ -26,6 +26,7 @@ export function Navbar() {
     { href: '/#biografia', label: 'Biografía', hash: 'biografia' },
     { href: '/#musica', label: 'Música', hash: 'musica' },
     { href: '/#galeria', label: 'Galería', hash: 'galeria' },
+    { href: '/#eventos', label: 'Eventos', hash: 'eventos' },
     { href: '/#contacto', label: 'Contacto', hash: 'contacto' }
   ]
 
@@ -103,21 +104,21 @@ export function Navbar() {
                   </Link>
                 ))}
                 {/* Social Media Icons */}
-                <div className="flex items-center justify-center space-x-4 pt-4 border-t border-gold/30 mt-4">
+                <div className="flex items-center justify-center flex-wrap gap-4 pt-4 border-t border-gold/30 mt-4">
                   <a
                     href="https://wa.me/573204852662"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sand hover:text-gold transition-colors"
+                    className="text-white hover:text-white/80 transition-colors"
                     aria-label="WhatsApp"
                   >
                     <MessageCircle className="w-6 h-6" />
                   </a>
                   <a
-                    href=""
+                    href="https://www.facebook.com/artistayosephprieto?locale=es_LA"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sand hover:text-gold transition-colors"
+                    className="text-white hover:text-white/80 transition-colors"
                     aria-label="Facebook"
                   >
                     <Facebook className="w-6 h-6" />
@@ -126,7 +127,7 @@ export function Navbar() {
                     href="https://www.instagram.com/yosephprietooficial/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sand hover:text-gold transition-colors"
+                    className="text-white hover:text-white/80 transition-colors"
                     aria-label="Instagram"
                   >
                     <Instagram className="w-6 h-6" />
@@ -135,16 +136,25 @@ export function Navbar() {
                     href="https://www.tiktok.com/@yosephprieto1"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sand hover:text-gold transition-colors"
+                    className="inline-flex brightness-0 invert opacity-90 hover:opacity-100 transition-opacity"
                     aria-label="TikTok"
                   >
-                    <Music2 className="w-6 h-6" />
+                    <Image src="/tik-tok.png" alt="" width={24} height={24} className="h-6 w-6 object-contain" unoptimized />
+                  </a>
+                  <a
+                    href="https://open.spotify.com/artist/yosephprieto"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex"
+                    aria-label="Spotify"
+                  >
+                    <Image src="/spotify.svg" alt="" width={24} height={24} className="h-6 w-6 object-contain" unoptimized />
                   </a>
                   <a
                     href="https://www.youtube.com/@yosephprietooficial/videos"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sand hover:text-gold transition-colors"
+                    className="text-white hover:text-white/80 transition-colors"
                     aria-label="YouTube"
                   >
                     <Youtube className="w-6 h-6" />

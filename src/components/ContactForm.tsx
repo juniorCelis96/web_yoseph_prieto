@@ -1,12 +1,12 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Send, Mail, Phone, MessageSquare, Loader2, Instagram, Facebook, Youtube, Music2 } from 'lucide-react'
+import { Send, Mail, Phone, MessageSquare, Loader2 } from 'lucide-react'
 import { Button } from './ui/Button'
 import { Input } from './ui/Input'
 import { Textarea } from './ui/Textarea'
+import { SocialLinks } from './SocialLinks'
 import { cn } from '@/lib/utils'
-import { socialMediaData } from '@/data/socialMediaData'
 
 interface FormData {
   name: string
@@ -394,82 +394,47 @@ export function ContactForm () {
                 </h3>
                 <div className="space-y-4 flex-1">
                   <div className="flex items-start space-x-3">
-                    <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-gold mt-1 flex-shrink-0" />
+                    <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-white mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-display text-gold font-medium mb-1 text-sm sm:text-base">Email</h4>
                       <a
                         href="mailto:oficialyoseph.prieto@gmail.com"
-                        className="text-sand hover:text-gold transition-colors font-body text-sm sm:text-base break-all"
+                        className="text-white hover:text-white/80 transition-colors font-body text-sm sm:text-base break-all"
                       >
                         oficialyoseph.prieto@gmail.com
                       </a>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <Phone className="w-5 h-5 sm:w-6 sm:h-6 text-gold mt-1 flex-shrink-0" />
+                    <Phone className="w-5 h-5 sm:w-6 sm:h-6 text-white mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-display text-gold font-medium mb-1 text-sm sm:text-base">Teléfono</h4>
                       <a
                         href="tel:+573204852662"
-                        className="text-sand hover:text-gold transition-colors font-body text-sm sm:text-base"
+                        className="text-white hover:text-white/80 transition-colors font-body text-sm sm:text-base"
                       >
                         +57 320 485 2662
                       </a>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6 text-gold mt-1 flex-shrink-0" />
+                    <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6 text-white mt-1 flex-shrink-0" />
                     <div>
                       <h4 className="font-display text-gold font-medium mb-1 text-sm sm:text-base">WhatsApp</h4>
                       <a
                         href="https://wa.me/573204852662"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sand hover:text-gold transition-colors font-body text-sm sm:text-base"
+                        className="text-white hover:text-white/80 transition-colors font-body text-sm sm:text-base"
                       >
                         Enviar Mensaje
                       </a>
                     </div>
                   </div>
-                  
-                  {/* Redes Sociales */}
-                  <div className="pt-4 border-t border-gold/30 mt-4">
+
+                  <div className="pt-4 border-t border-white/20 mt-4">
                     <h4 className="font-display text-gold font-medium mb-3 text-sm sm:text-base">Redes Sociales</h4>
-                    <div className="space-y-3">
-                      {socialMediaData
-                        .filter(social => social.id !== 'soundcloud')
-                        .map((social) => {
-                          let Icon = Music2
-                          if (social.icon === 'instagram') Icon = Instagram
-                          else if (social.icon === 'facebook') Icon = Facebook
-                          else if (social.icon === 'youtube') Icon = Youtube
-                          
-                          // Formato especial para TikTok y Spotify
-                          let displayText = social.username || social.name
-                          if (social.id === 'tiktok') {
-                            displayText = `TikTok: ${social.username || social.name}`
-                          } else if (social.id === 'spotify') {
-                            displayText = `Spotify: ${social.username || social.name}`
-                          }
-                          
-                          return (
-                            <div key={social.id} className="flex items-center space-x-3">
-                              <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-gold flex-shrink-0" />
-                              <div className="flex-1 min-w-0">
-                                <a
-                                  href={social.url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-sand hover:text-gold transition-colors font-body text-sm sm:text-base block truncate"
-                                  title={social.username || social.name}
-                                >
-                                  {displayText}
-                                </a>
-                              </div>
-                            </div>
-                          )
-                        })}
-                    </div>
+                    <SocialLinks showLabels variant="light" iconSize="w-5 h-5 sm:w-6 sm:h-6" />
                   </div>
                 </div>
               </div>

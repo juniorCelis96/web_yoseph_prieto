@@ -25,7 +25,7 @@ export function Footer () {
             {/* Redes Sociales (Primer Column) */}
             <div className="hidden md:block">
               <h3 className="font-display text-gold font-semibold mb-4">Redes Sociales</h3>
-              <SocialLinks showLabels={true} iconSize="w-4 h-4" />
+              <SocialLinks showLabels variant="light" iconSize="w-5 h-5" />
             </div>
 
             {/* Quick Links (Segundo Column) */}
@@ -58,19 +58,19 @@ export function Footer () {
                 <h3 className="font-display text-gold font-semibold mb-4">Contacto</h3>
                 <ul className="space-y-3">
                   <li className="flex items-center space-x-2">
-                    <Mail className="w-4 h-4 text-gold" />
+                    <Mail className="w-4 h-4 text-white shrink-0" />
                     <a
                       href="mailto:oficialyoseph.prieto@gmail.com"
-                      className="text-sand hover:text-gold transition-colors font-body text-sm break-all"
+                      className="text-white hover:text-white/80 transition-colors font-body text-sm break-all"
                     >
                       oficialyoseph.prieto@gmail.com
                     </a>
                   </li>
                   <li className="flex items-center space-x-2">
-                    <Phone className="w-4 h-4 text-gold" />
+                    <Phone className="w-4 h-4 text-white shrink-0" />
                     <a
                       href="tel:+573204852662"
-                      className="text-sand hover:text-gold transition-colors font-body text-sm"
+                      className="text-white hover:text-white/80 transition-colors font-body text-sm"
                     >
                       +57 320 485 2662
                     </a>

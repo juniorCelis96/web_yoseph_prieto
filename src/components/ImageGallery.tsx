@@ -1,22 +1,24 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+import { createPortal } from 'react-dom'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 
 const galleryImages = [
-  { id: '1', src: '/yp_gallery_1.jpeg', title: 'Presentación en Vivo' },
-  { id: '2', src: '/yp_gallery_2.jpeg', title: 'En el Escenario' },
-  { id: '3', src: '/yp_gallery_3.jpeg', title: 'Concierto' },
-  { id: '4', src: '/yp_gallery_4.jpeg', title: 'Momentos Especiales' },
-  { id: '7', src: '/yp_gallery_7.jpeg', title: 'En Acción' },
-  { id: '8', src: '/yp_gallery_8.jpeg', title: 'En Vivo' },
-  { id: '9', src: '/yp_gallery_9.jpeg', title: 'Presentación' },
-  { id: '10', src: '/yp_gallery_10.jpeg', title: 'Concierto en Vivo' },
-  { id: '11', src: '/yp_gallery_11.jpeg', title: 'Momentos Especiales' }
+  { id: '1', src: '/yp_gallery_1.jpeg' },
+  { id: '2', src: '/yp_gallery_2.jpeg' },
+  { id: '3', src: '/yp_gallery_3.jpeg' },
+  { id: '4', src: '/yp_gallery_4.jpeg' },
+  { id: '7', src: '/yp_gallery_7.jpeg' },
+  { id: '8', src: '/yp_gallery_8.jpeg' },
+  { id: '9', src: '/yp_gallery_9.jpeg' },
+  { id: '10', src: '/yp_gallery_10.jpeg' },
+  { id: '11', src: '/yp_gallery_11.jpeg' }
 ]
 
-const CAROUSEL_INTERVAL = 4000 // Aumentado a 4 segundos para mejor UX
+/** Cambio automático de slide cada 4 segundos */
+const CAROUSEL_INTERVAL = 4000
 
 export function ImageGallery () {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -98,6 +100,46 @@ export function ImageGallery () {
     setIsPaused(false)
   }, [])
 
+  const goLightboxPrevious = useCallback(() => {
+    setSelectedImage((i) => {
+      if (i === null) return i
+      return (i - 1 + galleryImages.length) % galleryImages.length
+    })
+  }, [])
+
+  const goLightboxNext = useCallback(() => {
+    setSelectedImage((i) => {
+      if (i === null) return i
+      return (i + 1) % galleryImages.length
+    })
+  }, [])
+
+  // Bloquear scroll de fondo mientras el lightbox está abierto
+  useEffect(() => {
+    if (selectedImage === null) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = prev
+    }
+  }, [selectedImage])
+
+  // Flechas del teclado en vista previa (← →, ciclo infinito)
+  useEffect(() => {
+    if (selectedImage === null) return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault()
+        goLightboxPrevious()
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault()
+        goLightboxNext()
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [selectedImage, goLightboxPrevious, goLightboxNext])
+
   // Memoizar la imagen actual para evitar re-renders innecesarios
   const currentImage = useMemo(() => galleryImages[currentIndex], [currentIndex])
 
@@ -125,7 +167,7 @@ export function ImageGallery () {
                 <div className="relative w-full h-full">
                   <Image
                     src={currentImage.src}
-                    alt={currentImage.title}
+                    alt={`Galería — imagen ${currentIndex + 1}`}
                     fill
                     className="object-cover object-[center_30%] cursor-pointer transition-opacity duration-300"
                     onClick={() => openLightbox(currentIndex)}
@@ -133,12 +175,6 @@ export function ImageGallery () {
                     loading="eager"
                     priority={currentIndex === 0}
                   />
-                  {/* Overlay con título */}
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-forest/90 via-forest/70 to-transparent p-4 sm:p-6">
-                    <h3 className="font-display text-gold text-lg sm:text-xl md:text-2xl font-bold text-center">
-                      {currentImage.title}
-                    </h3>
-                  </div>
                 </div>
 
                 {/* Botones de navegación */}
@@ -188,7 +224,7 @@ export function ImageGallery () {
                   >
                     <Image
                       src={image.src}
-                      alt={image.title}
+                      alt={`Miniatura galería ${index + 1}`}
                       fill
                       className="object-cover object-[center_30%]"
                       unoptimized
@@ -202,37 +238,82 @@ export function ImageGallery () {
         </div>
       </section>
 
-      {/* Lightbox Modal */}
-      {selectedImage !== null && (
-        <div
-          className="fixed inset-0 z-50 bg-walnut/95 flex items-center justify-center p-4"
-          onClick={closeLightbox}
-        >
-          <button
-            onClick={closeLightbox}
-            className="absolute top-3 sm:top-4 right-3 sm:right-4 text-gold hover:text-sand transition-colors z-10"
-            aria-label="Cerrar"
-          >
-            <X className="w-6 h-6 sm:w-8 sm:h-8" />
-          </button>
+      {/* Lightbox: portal a body para quedar por encima del navbar (main tiene z-10) */}
+      {selectedImage !== null &&
+        typeof document !== 'undefined' &&
+        createPortal(
           <div
-            className="relative max-w-7xl max-h-[90vh] w-full h-full border-2 border-gold p-2 rounded-lg"
-            onClick={(e) => e.stopPropagation()}
+            className="fixed inset-0 z-[10000] flex flex-col bg-walnut/97"
+            style={{ height: '100dvh', maxHeight: '100dvh' }}
+            onClick={closeLightbox}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Vista previa de imagen"
           >
-            <Image
-              src={galleryImages[selectedImage].src}
-              alt={galleryImages[selectedImage].title}
-              fill
-              className="object-contain rounded-md"
-              unoptimized
-              priority
-            />
-            <div className="absolute bottom-0 left-0 right-0 bg-walnut/90 p-4 sm:p-6 border-t-2 border-gold rounded-b-lg">
-              <h3 className="font-display text-gold text-lg sm:text-xl md:text-2xl font-bold mb-2">{galleryImages[selectedImage].title}</h3>
+            {/* Barra superior: Cerrar siempre visible, fuera del área de la imagen */}
+            <div
+              className="flex shrink-0 items-center justify-between gap-3 border-b border-gold/40 bg-walnut/95 px-3 py-3 sm:px-5 sm:py-4"
+              style={{ paddingTop: 'max(0.75rem, env(safe-area-inset-top))' }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <span className="font-display text-gold text-sm sm:text-base font-semibold truncate pr-2">
+                Galería
+              </span>
+              <button
+                type="button"
+                onClick={closeLightbox}
+                className="flex shrink-0 items-center justify-center gap-2 rounded-xl bg-gold px-4 py-2.5 text-navy shadow-lg border-2 border-white font-display text-sm sm:text-base font-bold hover:bg-gold/90 active:scale-[0.98] transition-all"
+                aria-label="Cerrar vista previa"
+              >
+                <X className="h-6 w-6 sm:h-7 sm:w-7 shrink-0" strokeWidth={2.5} />
+                <span>Cerrar</span>
+              </button>
             </div>
-          </div>
-        </div>
-      )}
+
+            {/* Imagen + flechas (ciclo: primera ← última, última → primera) */}
+            <div
+              className="relative min-h-0 flex-1 w-full p-2 sm:p-4"
+              style={{ paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))' }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  goLightboxPrevious()
+                }}
+                className="absolute left-1 sm:left-3 top-1/2 z-[10001] -translate-y-1/2 rounded-full border-2 border-gold bg-navy/90 p-2 sm:p-3 text-gold shadow-lg transition-all hover:bg-navy hover:scale-110 active:scale-95"
+                aria-label="Imagen anterior"
+              >
+                <ChevronLeft className="h-6 w-6 sm:h-8 sm:w-8" strokeWidth={2.5} />
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  goLightboxNext()
+                }}
+                className="absolute right-1 sm:right-3 top-1/2 z-[10001] -translate-y-1/2 rounded-full border-2 border-gold bg-navy/90 p-2 sm:p-3 text-gold shadow-lg transition-all hover:bg-navy hover:scale-110 active:scale-95"
+                aria-label="Siguiente imagen"
+              >
+                <ChevronRight className="h-6 w-6 sm:h-8 sm:w-8" strokeWidth={2.5} />
+              </button>
+
+              <div className="relative h-full w-full max-w-[min(100%,96rem)] mx-auto rounded-lg border-2 border-gold/60 bg-navy/50 overflow-hidden">
+                <Image
+                  src={galleryImages[selectedImage].src}
+                  alt={`Galería — imagen ampliada ${selectedImage + 1}`}
+                  fill
+                  sizes="100vw"
+                  className="object-contain p-1"
+                  unoptimized
+                  priority
+                />
+              </div>
+            </div>
+          </div>,
+          document.body
+        )}
     </>
   )
 }

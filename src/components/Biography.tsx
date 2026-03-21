@@ -82,7 +82,7 @@ export function Biography () {
                   <span className="text-gold font-semibold">Origen:</span> {artistData.location.city}, {artistData.location.department}
                 </p>
                 <p className="text-sand font-body text-xs sm:text-sm md:text-base mt-2">
-                  <span className="text-gold font-semibold">Género:</span> Música Ranchera, Popular, Carranga
+                  <span className="text-gold font-semibold">Género:</span> Música Norteña, Ranchera, Popular, Carranga y Tropical
                 </p>
               </div>
             </div>

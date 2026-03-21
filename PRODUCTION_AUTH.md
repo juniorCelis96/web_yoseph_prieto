@@ -31,7 +31,7 @@ Al intentar iniciar sesión, verás un mensaje como `[next-auth] authorize: XXX`
 | Código | Qué revisar |
 |--------|-------------|
 | `MISSING_ADMIN_UUID` | No está definida `ADMIN_UUID` en producción. |
-| `INVALID_OR_MISSING_UUID` | El UUID de la URL no coincide con `ADMIN_UUID` (o no se envía). |
+| `INVALID_OR_MISSING_UUID` | **Falta `ADMIN_UUID` en producción** o no coincide. Añade en Vercel: `ADMIN_UUID=24f901ff-e665-44d4-9d9f-28c8ee059501` (mismo valor que en local). |
 | `MISSING_ADMIN_EMAIL` | No está definida `ADMIN_EMAIL` en producción. |
 | `EMAIL_MISMATCH` | El email del formulario no coincide con `ADMIN_EMAIL`. |
 | `MISSING_PASSWORD` | No se envía contraseña. |

@@ -44,6 +44,25 @@ export function MusicSection () {
             <div className="separator-diagonal mx-auto w-32 sm:w-48" />
           </div>
 
+          {/* Video oficial — El Esmeraldero (versión Norteña) */}
+          <div className="reveal mb-10 sm:mb-12 md:mb-14 max-w-4xl mx-auto">
+            <h3 className="font-display text-gold text-xl sm:text-2xl md:text-3xl font-bold text-center mb-3 sm:mb-4">
+              El Esmeraldero — versión Norteña
+            </h3>
+            <p className="text-sand font-body text-sm sm:text-base text-center mb-4 sm:mb-5 max-w-2xl mx-auto">
+              Video oficial en 4K del lanzamiento. Dale play y comparte el sonido popular de Boyacá.
+            </p>
+            <div className="relative w-full aspect-video rounded-lg overflow-hidden border-2 border-gold bg-navy shadow-lg">
+              <iframe
+                className="absolute inset-0 h-full w-full"
+                src="https://www.youtube.com/embed/_dCfw52gv4E"
+                title="El Esmeraldero - Yoseph Prieto Oficial (Video Oficial)"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+          </div>
+
           {/* Cards horizontales */}
           <div className="space-y-4 sm:space-y-6">
             {musicData.map((release, index) => (

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useCallback } from 'react'
 import Image from 'next/image'
+import { Mail, ChevronDown } from 'lucide-react'
 import { artistData } from '@/data/artistData'
 import { musicData } from '@/data/musicData'
 import { smoothScrollToElement } from '@/lib/smoothScroll'
@@ -34,6 +35,11 @@ export function Hero() {
   const handleContactClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     smoothScrollToElement('contacto')
+  }, [])
+
+  const handleGalleryClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    smoothScrollToElement('galeria')
   }, [])
 
   return (
@@ -79,8 +85,9 @@ export function Hero() {
                 href={featuredMusic.spotifyUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-transparent hover:bg-gold/20 backdrop-blur-sm text-gold hover:text-gold px-4 sm:px-6 md:px-5 py-2.5 sm:py-3 md:py-2.5 font-display text-sm sm:text-base md:text-sm font-semibold transition-all duration-300 border-2 border-gold rounded-md glow-gold text-center"
+                className="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-white/10 backdrop-blur-sm text-white border-2 border-white rounded-2xl px-4 sm:px-6 md:px-5 py-2.5 sm:py-3 md:py-2.5 font-display text-sm sm:text-base md:text-sm font-semibold transition-all duration-300 text-center"
               >
+                <Image src="/spotify.svg" alt="" width={22} height={22} className="h-5 w-5 shrink-0 object-contain" unoptimized />
                 Escúchame en Spotify
               </a>
             )}
@@ -88,25 +95,39 @@ export function Hero() {
               href="https://www.youtube.com/@yosephprietooficial/videos"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-transparent hover:bg-gold/20 backdrop-blur-sm text-gold hover:text-gold px-4 sm:px-6 md:px-5 py-2.5 sm:py-3 md:py-2.5 font-display text-sm sm:text-base md:text-sm font-semibold transition-all duration-300 border-2 border-gold rounded-md glow-gold text-center"
+              className="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-white/10 backdrop-blur-sm text-white border-2 border-white rounded-2xl px-4 sm:px-6 md:px-5 py-2.5 sm:py-3 md:py-2.5 font-display text-sm sm:text-base md:text-sm font-semibold transition-all duration-300 text-center"
             >
+              <Image src="/youtube.png" alt="" width={22} height={22} className="h-5 w-5 shrink-0 object-contain brightness-0 invert" unoptimized />
               Escúchame en YouTube
             </a>
             <a
               href="/#contacto"
               onClick={handleContactClick}
-              className="bg-transparent hover:bg-gold/20 backdrop-blur-sm text-gold hover:text-gold px-4 sm:px-6 md:px-5 py-2.5 sm:py-3 md:py-2.5 font-display text-sm sm:text-base md:text-sm font-semibold transition-all duration-300 border-2 border-gold rounded-md glow-gold text-center"
+              className="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-white/10 backdrop-blur-sm text-white border-2 border-white rounded-2xl px-4 sm:px-6 md:px-5 py-2.5 sm:py-3 md:py-2.5 font-display text-sm sm:text-base md:text-sm font-semibold transition-all duration-300 text-center"
             >
+              <Mail className="h-5 w-5 shrink-0" aria-hidden />
               Contáctanos
             </a>
           </div>
         </div>
       </div>
 
+      {/* Ver más → Galería (solo móvil) */}
+      <div className="md:hidden absolute bottom-[5.25rem] left-1/2 -translate-x-1/2 z-10 w-full max-w-xs px-4 flex justify-center">
+        <a
+          href="/#galeria"
+          onClick={handleGalleryClick}
+          className="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-white/10 backdrop-blur-sm text-white border-2 border-white rounded-2xl px-5 py-2.5 font-display text-sm font-semibold transition-all duration-300"
+        >
+          Ver más
+          <ChevronDown className="h-5 w-5 shrink-0" strokeWidth={2.5} aria-hidden />
+        </a>
+      </div>
+
       {/* Scroll indicator */}
       <div className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
-        <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-gold/50 rounded-full flex justify-center backdrop-blur-sm">
-          <div className="w-1 h-2 sm:h-3 bg-gold/50 rounded-full mt-1.5 sm:mt-2" />
+        <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-white/40 rounded-full flex justify-center backdrop-blur-sm">
+          <div className="w-1 h-2 sm:h-3 bg-white/50 rounded-full mt-1.5 sm:mt-2" />
         </div>
       </div>
     </section>
