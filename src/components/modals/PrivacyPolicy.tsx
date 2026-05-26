@@ -55,10 +55,24 @@ export function PrivacyPolicyContent () {
         </section>
 
         <section>
-          <h3 className="text-gold font-display font-semibold text-lg mb-2">6. Cookies</h3>
+          <h3 className="text-gold font-display font-semibold text-lg mb-2">6. Cookies y publicidad</h3>
           <p>
-            Nuestro sitio web puede utilizar cookies para mejorar su experiencia de navegación. Puede configurar su
-            navegador para rechazar cookies, aunque esto puede afectar algunas funcionalidades del sitio.
+            Nuestro sitio web utiliza cookies para mejorar su experiencia de navegación y para mostrar anuncios
+            mediante Google AdSense, un servicio de publicidad de Google LLC.
+          </p>
+          <p className="mt-2">
+            Google y sus socios pueden usar cookies para personalizar anuncios según sus visitas a este y otros sitios.
+            Puede obtener más información en la{' '}
+            <a
+              href="https://policies.google.com/technologies/ads"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gold hover:underline"
+            >
+              política de publicidad de Google
+            </a>
+            . Puede configurar su navegador para rechazar cookies, aunque esto puede afectar algunas funcionalidades
+            del sitio.
           </p>
         </section>
 

@@ -6,6 +6,7 @@ import { Footer } from '@/components/Footer'
 import { WhatsAppButton } from '@/components/WhatsAppButton'
 import { CustomCursor } from '@/components/CustomCursor'
 import { Providers } from '@/components/Providers'
+import { AdSenseScript } from '@/components/AdSenseScript'
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -84,6 +85,7 @@ export default function RootLayout ({
   return (
     <html lang="es" className={`${cormorant.variable} ${lora.variable}`}>
       <body className="min-h-screen bg-navy text-white antialiased relative">
+        <AdSenseScript />
         <Providers>
           <CustomCursor />
           <Navbar />
